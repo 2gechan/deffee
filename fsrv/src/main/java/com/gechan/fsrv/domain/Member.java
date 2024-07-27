@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,15 +20,15 @@ import java.util.List;
 public class Member {
 
     @Id
-    String id;
+    private String id;
 
-    String password;
-    String name;
-    String phone;
-    String team;
-    Date signDate;
+    private String password;
+    private String name;
+    private String phone;
+    private String team;
+    private LocalDate signDate;
 
-    boolean useFlag;
+    private boolean useFlag;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default

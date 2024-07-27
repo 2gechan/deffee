@@ -2,6 +2,7 @@ package com.gechan.fsrv.dto;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Builder
@@ -10,15 +11,11 @@ import java.util.Date;
 @NoArgsConstructor
 public class MemberDTO {
 
-    MemberRole memberType;
     String id;
     String password;
     String name;
     String phone;
     String team;
-    Date signDate;
-
-
-    boolean use;
+    LocalDate signDate;
 
 }
