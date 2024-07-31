@@ -1,4 +1,4 @@
-package com.gechan.fsrv.domain;
+package com.gechan.fsrv.domain.field;
 
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -18,5 +18,13 @@ public class Field {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "field")
     @Builder.Default
     private List<InField> inFieldList = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "field")
+    @Builder.Default
+    private List<FieldImage> fieldImageList = new ArrayList<>();
+
+    public void addInField () {
+        inFieldList.add(new InField(inFieldList.size()));
+    }
 
 }

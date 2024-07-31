@@ -1,6 +1,6 @@
 package com.gechan.fsrv.repository;
 
-import com.gechan.fsrv.domain.Member;
+import com.gechan.fsrv.domain.member.Member;
 import com.gechan.fsrv.dto.MemberDTO;
 import com.gechan.fsrv.dto.MemberRole;
 import com.gechan.fsrv.service.MemberService;
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 @SpringBootTest

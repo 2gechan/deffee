@@ -1,6 +1,6 @@
 package com.gechan.fsrv.repository;
 
-import com.gechan.fsrv.domain.Member;
+import com.gechan.fsrv.domain.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

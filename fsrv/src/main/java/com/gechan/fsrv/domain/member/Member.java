@@ -1,4 +1,4 @@
-package com.gechan.fsrv.domain;
+package com.gechan.fsrv.domain.member;
 
 import com.gechan.fsrv.dto.MemberRole;
 import jakarta.persistence.*;
