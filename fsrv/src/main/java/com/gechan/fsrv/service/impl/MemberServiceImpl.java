@@ -16,23 +16,12 @@ public class MemberServiceImpl implements MemberService {
         this.memberRepository = memberRepository;
     }
 
-    Member dtoToEntity(MemberDTO memberDTO) {
-        Member member = Member.builder()
-                .id(memberDTO.getId())
-                .name(memberDTO.getName())
-                .password(memberDTO.getPassword())
-                .phone(memberDTO.getPhone())
-                .signDate(memberDTO.getSignDate())
-                .build();
-        member.addRole(MemberRole.USER);
-        // 구장 운영자일 경우 체크 로직 필요
-
-        return member;
-    }
 
     @Override
     public void join(MemberDTO memberDTO) {
-        Member member = this.dtoToEntity(memberDTO);
+        Member member = new Member();
+        member.dtoToEntity(memberDTO);
+
         memberRepository.save(member);
     }
 

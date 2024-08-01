@@ -8,4 +8,6 @@ public interface MemberService {
     void login(String id, String password);
 
     void findById(String id);
+
+
 }

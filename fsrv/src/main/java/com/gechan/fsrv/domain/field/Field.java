@@ -23,8 +23,28 @@ public class Field {
     @Builder.Default
     private List<FieldImage> fieldImageList = new ArrayList<>();
 
+    protected Field() {
+
+    }
+    public Field(String fieldName, String ownerId) {
+        this.fieldName = fieldName;
+        this.ownerId = ownerId;
+    }
+
     public void addInField () {
         inFieldList.add(new InField(inFieldList.size()));
+    }
+
+    public void addImage(FieldImage image) {
+        fieldImageList.add(image);
+    }
+
+    public void clearImageList() {
+        fieldImageList.clear();
+    }
+
+    public void clearInFieldList() {
+        inFieldList.clear();
     }
 
 }

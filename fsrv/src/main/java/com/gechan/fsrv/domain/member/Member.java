@@ -1,5 +1,6 @@
 package com.gechan.fsrv.domain.member;
 
+import com.gechan.fsrv.dto.MemberDTO;
 import com.gechan.fsrv.dto.MemberRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -40,6 +41,20 @@ public class Member {
 
     public void clearRole() {
         memberRoleList.clear();
+    }
+
+    public Member dtoToEntity(MemberDTO memberDTO) {
+        Member member = Member.builder()
+                .id(memberDTO.getId())
+                .name(memberDTO.getName())
+                .password(memberDTO.getPassword())
+                .phone(memberDTO.getPhone())
+                .signDate(memberDTO.getSignDate())
+                .build();
+        member.addRole(MemberRole.USER);
+        // 구장 운영자일 경우 체크 로직 필요
+
+        return member;
     }
 
 }
