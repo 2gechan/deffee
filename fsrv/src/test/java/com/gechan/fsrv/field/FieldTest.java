@@ -1,16 +1,11 @@
 package com.gechan.fsrv.field;
 
 import com.gechan.fsrv.domain.field.Field;
-import com.gechan.fsrv.domain.member.Member;
-import com.gechan.fsrv.dto.MemberRole;
 import com.gechan.fsrv.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
 
 @SpringBootTest
 public class FieldTest {
