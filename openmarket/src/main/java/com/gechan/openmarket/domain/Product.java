@@ -1,10 +1,7 @@
 package com.gechan.openmarket.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,6 +10,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @ToString(exclude = "productImageList")
 @Table(name = "tbl_product")
 @Entity
@@ -20,7 +18,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long pno;
+    private Long pno = null;
 
     private String pname;
 
@@ -43,6 +41,20 @@ public class Product {
     public void addImage(ProductImage image) {
         image.setOrder(productImageList.size());
         productImageList.add(image);
+    }
+
+    public void addImageString(String fileName) {
+        ProductImage productImage = ProductImage.builder().fileName(fileName).build();
+
+        addImage(productImage);
+    }
+
+    public void clearList() {
+        productImageList.clear();
+    }
+
+    public void setUploadDate(LocalDate date) {
+        this.uploadDate = date;
     }
 
 }

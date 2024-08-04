@@ -1,6 +1,7 @@
 package com.gechan.openmarket.util;
 
 import jakarta.annotation.PostConstruct;
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -53,13 +54,14 @@ public class FileUtil {
                 // file.getInputStream() 은 file 객체로 부터 입력 스트림을 가져와 파일의 내용을 바이트 단위로 읽을 수 있게 한다.
                 Files.copy(file.getInputStream(), savePath); // 입력 스트림에서 데이터를 읽어 지정된 경로에 파일로 저장
 
-                /*
-                썸네일 이미지 따로 저장할지 ?
                 String contentType = file.getContentType();
                 if (contentType == null || contentType.startsWith("image")) {
                     Path thumbnailPath = Paths.get(uploadPath, "s_" + saveName);
+
+                    // 프론트 단에서 이미지를 불러올 때 "s_" + 파일명으로 불러오면 원본 파일 대신 조정된 이미지를 불러올 수 있다.
+
+                    Thumbnails.of(savePath.toFile()).size(200, 200).toFile(thumbnailPath.toFile());
                 }
-                 */
 
                 uploadFileNames.add(saveName);
 
