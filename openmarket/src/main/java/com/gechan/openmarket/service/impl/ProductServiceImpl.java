@@ -3,9 +3,15 @@ package com.gechan.openmarket.service.impl;
 import com.gechan.openmarket.domain.Product;
 import com.gechan.openmarket.domain.ProductImage;
 import com.gechan.openmarket.dto.ProductDTO;
+import com.gechan.openmarket.dto.page.PageRequestDTO;
+import com.gechan.openmarket.dto.page.PageResponseDTO;
 import com.gechan.openmarket.repository.ProductRepository;
 import com.gechan.openmarket.service.ProductService;
 import lombok.Builder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -71,14 +77,43 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getList() {
-        return null;
+    public PageResponseDTO<ProductDTO> getList(PageRequestDTO pageRequestDTO) {
+
+        // springframework 에서 제공하는 Pageable 객체를 통해 요청 페이지, 사이즈(limit), 내림차순 정렬 설정
+        Pageable pageable = PageRequest.of(pageRequestDTO.getPage() - 1, pageRequestDTO.getSize()
+                , Sort.by("pno").descending());
+
+        // Page 객체는 현재 페이지에 대한 데이터를 담고 그것과 별개로 테이블 전체 데이터의 개수, 전체 페이지 수, 현재 페이지 정보 등을 갖고있다.
+        // object[] : 0 번째 product, 1 번째 productImage
+        Page<Object[]> result = productRepository.selectList(pageable);
+
+        List<ProductDTO> productDTOList = result.stream().map(arr -> {
+            ProductDTO productDTO = null;
+
+            Product product = (Product) arr[0];
+            ProductImage productImage = (ProductImage) arr[1];
+
+            productDTO = entityToDTO(product); // 상품 정보만 들어 있음
+
+            String imageStr = productImage.getFileName();
+            productDTO.setUploadFileNames(List.of(imageStr));
+
+            return productDTO;
+        }).toList();
+
+        // 조회된 결과 총 개수
+        long totalCount = result.getTotalElements();
+
+        return PageResponseDTO.<ProductDTO>pageRes()
+                .dtoList(productDTOList).pageRequestDTO(pageRequestDTO).totalCount((int) totalCount).build();
+
     }
 
     @Override
     public ProductDTO getOne(Long pno) {
 
-        Optional<Product> findProduct = productRepository.findById(pno);
+        // Optional<Product> findProduct = productRepository.findById(pno);
+        Optional<Product> findProduct = productRepository.selectOne(pno);
         Product product = findProduct.orElseThrow();
 
         return entityToDTO(product);

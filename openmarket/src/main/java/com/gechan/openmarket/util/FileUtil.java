@@ -1,6 +1,7 @@
 package com.gechan.openmarket.util;
 
 import jakarta.annotation.PostConstruct;
+import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
+@Log4j2
 public class FileUtil {
 
     @Value("${com.gechan.upload.path}")

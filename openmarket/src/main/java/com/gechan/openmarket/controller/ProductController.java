@@ -3,6 +3,7 @@ package com.gechan.openmarket.controller;
 import com.gechan.openmarket.dto.ProductDTO;
 import com.gechan.openmarket.service.ProductService;
 import com.gechan.openmarket.util.FileUtil;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/product")
+@Log4j2
 public class ProductController {
 
     private final FileUtil fileUtil;
@@ -34,8 +36,11 @@ public class ProductController {
         return Map.of("RESULT", pno);
     }
 
+//    public List<ProductDTO>
+
     @GetMapping("/{pno}")
     public ProductDTO getOne(@PathVariable Long pno) {
         return productService.getOne(pno);
     }
+
 }
