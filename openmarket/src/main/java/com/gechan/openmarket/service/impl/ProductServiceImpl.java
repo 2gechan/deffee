@@ -120,8 +120,30 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Map<String, String> update(ProductDTO productDTO) {
-        return null;
+    public Long update(ProductDTO productDTO) {
+
+        Optional<Product> oldProduct = productRepository.selectOne(productDTO.getPno());
+
+        Product product = oldProduct.orElseThrow();
+
+        product.changePname(productDTO.getPname());
+        product.changePrice(productDTO.getPrice());
+        product.changePdesc(productDTO.getPdesc());
+        product.changeSellFlag(productDTO.isSellFlag());
+
+        // 새로 변경된 파일 목록들
+        List<String> uploadFileNames = productDTO.getUploadFileNames();
+
+        product.clearList();
+
+        if (uploadFileNames != null && !uploadFileNames.isEmpty()) {
+            uploadFileNames.forEach(fileName -> {
+                product.addImageString(fileName);
+            });
+        }
+
+        return productRepository.save(product).getPno();
+
     }
 
     @Override

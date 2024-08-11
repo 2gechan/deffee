@@ -95,4 +95,25 @@ public class FileUtil {
 
         return ResponseEntity.ok().headers(header).body(resource);
     }
+
+    public void deleteFile(List<String> deleteFileList) {
+        if (deleteFileList == null || deleteFileList.isEmpty()) return;
+
+        deleteFileList.forEach(fileName -> {
+
+            String thumbnailFileNames = "s_" + fileName;
+            // thumbnail image
+            Path thumbnailPath = Paths.get(uploadPath, thumbnailFileNames);
+            // original image
+            Path filePath = Paths.get(uploadPath, fileName);
+
+            try {
+                Files.deleteIfExists(filePath);
+                Files.deleteIfExists(thumbnailPath);
+            } catch (IOException e) {
+                throw new RuntimeException(e.getMessage());
+            }
+
+        });
+    }
 }

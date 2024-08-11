@@ -18,7 +18,7 @@ public interface ProductService {
 
     public ProductDTO getOne(Long pno);
 
-    public Map<String, String> update(ProductDTO productDTO);
+    public Long update(ProductDTO productDTO);
 
     public Map<String, String> delete(Long pno);
 

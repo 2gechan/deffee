@@ -34,6 +34,18 @@ public class Product {
     @ElementCollection
     private List<ProductImage> productImageList = new ArrayList<>();
 
+    public void changePname(String pname) {
+        this.pname = pname;
+    }
+
+    public void changePrice(int price) {
+        this.price = price;
+    }
+
+    public void changePdesc(String pdesc) {
+        this.pdesc = pdesc;
+    }
+
     public void changeSellFlag(boolean sellFlag) {
         this.sellFlag = sellFlag;
     }
