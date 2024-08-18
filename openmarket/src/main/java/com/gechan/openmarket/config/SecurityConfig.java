@@ -1,5 +1,8 @@
 package com.gechan.openmarket.config;
 
+import com.gechan.openmarket.security.handler.LoginAccessDeniedHandler;
+import com.gechan.openmarket.security.handler.LoginFailHandler;
+import com.gechan.openmarket.security.handler.LoginSuccessHandler;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,12 +44,12 @@ public class SecurityConfig {
         // 로그인 시 success 핸들러, failed 핸들러
         http.formLogin(config -> {
             config.loginPage("/api/member/login");
-            config.successHandler(null);
-            config.failureHandler(null);
+            config.successHandler(new LoginSuccessHandler());
+            config.failureHandler(new LoginFailHandler());
         });
 
         http.exceptionHandling(config -> {
-            config.accessDeniedHandler(null);
+            config.accessDeniedHandler(new LoginAccessDeniedHandler());
         });
 
 
