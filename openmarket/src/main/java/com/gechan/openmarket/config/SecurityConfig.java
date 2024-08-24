@@ -1,5 +1,6 @@
 package com.gechan.openmarket.config;
 
+import com.gechan.openmarket.security.filter.JWTCheckFilter;
 import com.gechan.openmarket.security.handler.LoginAccessDeniedHandler;
 import com.gechan.openmarket.security.handler.LoginFailHandler;
 import com.gechan.openmarket.security.handler.LoginSuccessHandler;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -47,6 +49,8 @@ public class SecurityConfig {
             config.successHandler(new LoginSuccessHandler());
             config.failureHandler(new LoginFailHandler());
         });
+
+        http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
 
         http.exceptionHandling(config -> {
             config.accessDeniedHandler(new LoginAccessDeniedHandler());
