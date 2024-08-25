@@ -33,6 +33,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 
         log.debug("요청 URI ........." + path);
 
+        // 로그인 시도는 인증 토큰 발급 전이기 때문에 true로 리턴하여 JWTCheckFilter를 수행하지 않는다.
         if (path.startsWith("/api/member/")) {
             return true;
         }
@@ -62,9 +63,16 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 
             MemberDTO memberDTO = new MemberDTO(id, pw, nickname, roleNames);
 
+            // UsernamePasswordAuthenticationToken 객체를 생성하여
+            // 인증 정보를 포함한 토큰을 만든다. 이 토큰은 Spring Security에서 사용된다.
             UsernamePasswordAuthenticationToken authenticationToken
                     = new UsernamePasswordAuthenticationToken(memberDTO, pw, memberDTO.getAuthorities());
+
+            // Spring Security의 컨텍스트에 현재 인증된 사용자 정보를 설정한다.
+            // 이후 요청에서 인증된 사용자로서의 권한을 갖게 된다.
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+            // 다음 filter 수행
             filterChain.doFilter(request, response);
         } catch (Exception e) {
             Gson gson = new Gson();
