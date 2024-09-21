@@ -6,6 +6,8 @@ import com.gechan.product_management.repository.ListProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SimpleProductService {
 
@@ -28,5 +30,29 @@ public class SimpleProductService {
         ProductDTO saveProductDTO = modelMapper.map(saveProduct, ProductDTO.class);
 
          return saveProductDTO;
+    }
+
+    public ProductDTO findById(Long id) {
+        Product product = listProductRepository.findById(id);
+        ProductDTO productDTO = modelMapper.map(product, ProductDTO.class);
+        return productDTO;
+    }
+
+    public List<ProductDTO> findAll() {
+        List<Product> products = listProductRepository.findAll();
+        List<ProductDTO> productDTOS = products.stream()
+                .map(product -> modelMapper.map(product, ProductDTO.class))
+                .toList();
+
+        return productDTOS;
+    }
+
+    public List<ProductDTO> findByNameContaining(String name) {
+        List<Product> products = listProductRepository.findByNameContaining(name);
+        List<ProductDTO> productDTOS = products.stream()
+                .map(product -> modelMapper.map(product, ProductDTO.class))
+                .toList();
+
+        return productDTOS;
     }
 }
