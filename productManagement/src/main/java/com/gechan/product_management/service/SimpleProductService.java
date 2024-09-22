@@ -55,4 +55,18 @@ public class SimpleProductService {
 
         return productDTOS;
     }
+
+
+    public ProductDTO update(ProductDTO productDTO) {
+        Product product = modelMapper.map(productDTO, Product.class);
+        Product updatedProduct = listProductRepository.update(product);
+
+        ProductDTO updatedProductDTO = modelMapper.map(updatedProduct, ProductDTO.class);
+
+        return updatedProductDTO;
+    }
+
+    public void delete(Long id) {
+        listProductRepository.delete(id);
+    }
 }
