@@ -3,6 +3,7 @@ package com.gechan.product_management.controller;
 import com.gechan.product_management.domain.Product;
 import com.gechan.product_management.dto.ProductDTO;
 import com.gechan.product_management.service.SimpleProductService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST)
-    public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
+    public ProductDTO createProduct(@Valid @RequestBody ProductDTO productDTO) {
 
         return simpleProductService.add(productDTO);
     }

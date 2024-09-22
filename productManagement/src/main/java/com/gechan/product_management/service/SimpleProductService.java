@@ -3,6 +3,7 @@ package com.gechan.product_management.service;
 import com.gechan.product_management.domain.Product;
 import com.gechan.product_management.dto.ProductDTO;
 import com.gechan.product_management.repository.ListProductRepository;
+import com.gechan.product_management.validation.ValidationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +14,18 @@ public class SimpleProductService {
 
     private final ListProductRepository listProductRepository;
     private final ModelMapper modelMapper;
+    private final ValidationService validationService;
 
-    public SimpleProductService(ListProductRepository listProductRepository, ModelMapper modelMapper) {
+    public SimpleProductService(ListProductRepository listProductRepository, ModelMapper modelMapper, ValidationService validationService) {
         this.listProductRepository = listProductRepository;
         this.modelMapper = modelMapper;
+        this.validationService = validationService;
     }
 
     public ProductDTO add(ProductDTO productDTO) {
         // ProductDTO -> Product 변환
         Product product = modelMapper.map(productDTO, Product.class);
+        validationService.checkValid(product);
 
         // Repository 호출
         Product saveProduct = listProductRepository.add(product);
