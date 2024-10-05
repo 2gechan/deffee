@@ -41,5 +41,4 @@ public class Product {
         return Objects.equals(id, product.id);
     }
 
-
 }

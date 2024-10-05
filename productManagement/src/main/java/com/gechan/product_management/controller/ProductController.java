@@ -24,7 +24,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
-    public ProductDTO findProductById(@PathVariable Long id) {
+    public ProductDTO findProductById(@PathVariable("id") Long id) {
         return simpleProductService.findById(id);
     }
 

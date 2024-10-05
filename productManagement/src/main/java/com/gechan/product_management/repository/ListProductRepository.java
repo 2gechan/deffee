@@ -1,6 +1,7 @@
 package com.gechan.product_management.repository;
 
 import com.gechan.product_management.domain.Product;
+import com.gechan.product_management.exception.EntityNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class ListProductRepository {
         return products.stream()
                 .filter(product -> product.sameId(id))
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(() -> new EntityNotFoundException("Product를 찾지 못했습니다."));
     }
 
     public List<Product> findAll() {
