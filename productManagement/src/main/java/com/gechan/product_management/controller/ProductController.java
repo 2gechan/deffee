@@ -35,7 +35,7 @@ public class ProductController {
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public List<ProductDTO> findProducts(
-            @RequestParam(required = false) String name
+            @RequestParam(required = false, name = "name") String name
     ) {
         if (name == null) {
             return simpleProductService.findAll();
@@ -44,14 +44,14 @@ public class ProductController {
         return simpleProductService.findByNameContaining(name);
     }
 
-    @RequestMapping(value = "/product/{id}", method = RequestMethod.PUT)
-    public ProductDTO updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
+    @RequestMapping(value = "/products/{id}", method = RequestMethod.PUT)
+    public ProductDTO updateProduct(@PathVariable(name = "id") Long id, @RequestBody ProductDTO productDTO) {
         productDTO.setId(id);
         return simpleProductService.update(productDTO);
     }
 
-    @RequestMapping(value = "/product/{id}", method = RequestMethod.DELETE)
-    public void deleteProduct(@PathVariable Long id) {
+    @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
+    public void deleteProduct(@PathVariable(name = "id") Long id) {
         simpleProductService.delete(id);
     }
 }
