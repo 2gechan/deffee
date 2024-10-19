@@ -2,6 +2,7 @@ package com.gechan.product_management.repository;
 
 import com.gechan.product_management.domain.Product;
 import com.gechan.product_management.exception.EntityNotFoundException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,7 +10,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
-public class ListProductRepository {
+@Profile("test")
+public class ListProductRepository implements ProductRepository {
 
     private List<Product> products = new CopyOnWriteArrayList<>();
     private AtomicLong sequence = new AtomicLong(1L);
