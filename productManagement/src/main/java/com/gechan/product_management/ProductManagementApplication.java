@@ -1,7 +1,5 @@
 package com.gechan.product_management;
 
-import org.modelmapper.ModelMapper;
-import org.modelmapper.config.Configuration;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,14 +17,14 @@ public class ProductManagementApplication {
         SpringApplication.run(ProductManagementApplication.class, args);
     }
 
-    @Bean
-    public ModelMapper modelMapper() {
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration()
-                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
-                .setFieldMatchingEnabled(true);
-        return modelMapper;
-    }
+//    @Bean
+//    public ModelMapper modelMapper() {
+//        ModelMapper modelMapper = new ModelMapper();
+//        modelMapper.getConfiguration()
+//                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
+//                .setFieldMatchingEnabled(true);
+//        return modelMapper;
+//    }
 
     @Bean
     @Profile("prod")

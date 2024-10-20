@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="761ba6ef-5e07-46a2-aa6a-8911bb3d57b4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gechan/devlog/DevlogApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gechan/devlog/domain/Member.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/gechan/devlog/DevlogApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../productManagement/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../productManagement/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../productManagement/src/main/java/com/gechan/product_management/ProductManagementApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../productManagement/src/main/java/com/gechan/product_management/ProductManagementApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../productManagement/src/main/java/com/gechan/product_management/domain/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/../productManagement/src/main/java/com/gechan/product_management/domain/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../productManagement/src/main/java/com/gechan/product_management/dto/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../productManagement/src/main/java/com/gechan/product_management/dto/ProductDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../productManagement/src/main/java/com/gechan/product_management/service/SimpleProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../productManagement/src/main/java/com/gechan/product_management/service/SimpleProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../productManagement/src/test/java/com/gechan/product_management/service/SimpleProductServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../productManagement/src/test/java/com/gechan/product_management/service/SimpleProductServiceTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2nekoYVGkeFBIpP19xets0NeY4i" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/isechan/Documents/workspace/deffee/devlog/build.gradle",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="DevlogApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.gechan.devlog.DevlogApplication" />
+      <module name="devlog.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.gechan.devlog.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.DevlogApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="761ba6ef-5e07-46a2-aa6a-8911bb3d57b4" name="Changes" comment="" />
+      <created>1729341104626</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1729341104626</updated>
+    </task>
+    <servers />
+  </component>
+</project>

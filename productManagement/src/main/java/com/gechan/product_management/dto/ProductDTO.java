@@ -1,5 +1,6 @@
 package com.gechan.product_management.dto;
 
+import com.gechan.product_management.domain.Product;
 import jakarta.validation.constraints.NotNull;
 
 public class ProductDTO {
@@ -53,5 +54,30 @@ public class ProductDTO {
         this.name = name;
         this.price = price;
         this.amount = amount;
+    }
+
+    public ProductDTO(Long id, @NotNull String name, @NotNull Integer price, @NotNull Integer amount) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.amount = amount;
+    }
+
+    public static Product toEntity(ProductDTO productDTO) {
+        Product product = new Product(
+                productDTO.getId(),
+                productDTO.getName(),
+                productDTO.getPrice(),
+                productDTO.getAmount()
+        );
+
+        return product;
+    }
+
+    public static ProductDTO toDTO(Product product) {
+        ProductDTO productDTO = new ProductDTO(product.getName(), product.getPrice(), product.getAmount());
+        productDTO.setId(product.getId());
+
+        return productDTO;
     }
 }
