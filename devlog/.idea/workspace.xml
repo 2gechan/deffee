@@ -4,26 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="761ba6ef-5e07-46a2-aa6a-8911bb3d57b4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gechan/devlog/DevlogApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gechan/devlog/domain/Member.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/gechan/devlog/DevlogApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../productManagement/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../productManagement/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../productManagement/src/main/java/com/gechan/product_management/ProductManagementApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../productManagement/src/main/java/com/gechan/product_management/ProductManagementApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../productManagement/src/main/java/com/gechan/product_management/domain/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/../productManagement/src/main/java/com/gechan/product_management/domain/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../productManagement/src/main/java/com/gechan/product_management/dto/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../productManagement/src/main/java/com/gechan/product_management/dto/ProductDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../productManagement/src/main/java/com/gechan/product_management/service/SimpleProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../productManagement/src/main/java/com/gechan/product_management/service/SimpleProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../productManagement/src/test/java/com/gechan/product_management/service/SimpleProductServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../productManagement/src/test/java/com/gechan/product_management/service/SimpleProductServiceTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="761ba6ef-5e07-46a2-aa6a-8911bb3d57b4" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,13 +35,13 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/Users/isechan/Documents/workspace/deffee/devlog/build.gradle",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/isechan/Documents/workspace/deffee/devlog/build.gradle&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="DevlogApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.gechan.devlog.DevlogApplication" />
