@@ -6,10 +6,10 @@ import java.util.Date;
 
 @Entity
 @Table
-public class Post {
+public class Post extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private Long id;
     private String title;
@@ -18,6 +18,7 @@ public class Post {
     private int viewCount;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member author;
+    @JoinColumn(name = "blog_id")
+    private Blog blog;
+
 }

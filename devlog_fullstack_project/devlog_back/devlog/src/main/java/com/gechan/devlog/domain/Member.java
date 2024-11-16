@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +20,7 @@ public class Member {
 
     private String name;
 
-    @OneToMany(mappedBy = "author")
-    private List<Post> postList = new ArrayList<>();
+    @OneToOne
+    @JoinColumn(name = "blog_id")
+    private Blog myBlog;
 }
