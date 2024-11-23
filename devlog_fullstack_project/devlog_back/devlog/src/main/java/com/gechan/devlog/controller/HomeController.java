@@ -9,6 +9,6 @@ public class HomeController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public void home() {
-
+ 
     }
 }

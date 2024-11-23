@@ -31,7 +31,8 @@ public class ShortenUrlRestController {
     }
 
     @RequestMapping(value = "/shortenUrl/{shortenUrlKey}", method = RequestMethod.GET)
-    public ResponseEntity<?> getShortenUrlInformation(@PathVariable String shortenUrlKey) {
-        return ResponseEntity.ok().body(null);
+    public ResponseEntity<?> getShortenUrlInformation(@PathVariable(name = "shortenUrlKey") String shortenUrlKey) {
+        ShortenUrlInformationDto shortenUrlInformationDto = simpleShortenUrlService.getShortenUrlInformationByShortenUrlKey(shortenUrlKey);
+        return ResponseEntity.ok().body(shortenUrlInformationDto);
     }
 }
