@@ -36,4 +36,8 @@ public class ShortenUrl {
     public Long getRedirectCount() {
         return redirectCount;
     }
+
+    public void increaseRedirectCount() {
+        this.redirectCount = this.redirectCount + 1;
+    }
 }
