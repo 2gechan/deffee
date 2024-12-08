@@ -12,6 +12,13 @@ public class ShortenUrlCreateRequestDto {
 
     private String originalUrl;
 
+    public ShortenUrlCreateRequestDto() {
+    }
+
+    public ShortenUrlCreateRequestDto(String originalUrl) {
+        this.originalUrl = originalUrl;
+    }
+
     public String getOriginalUrl() {
         return originalUrl;
     }
