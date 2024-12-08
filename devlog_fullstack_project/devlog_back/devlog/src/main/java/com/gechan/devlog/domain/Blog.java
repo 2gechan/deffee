@@ -15,9 +15,13 @@ public class Blog extends BaseEntity {
 
     private String blogName;
 
-    @OneToOne(mappedBy = "myBlog")
+    @OneToOne(mappedBy = "myBlog", fetch = FetchType.LAZY)
     private Member owner;
 
     @OneToMany(mappedBy = "blog")
     private List<Post> postList = new ArrayList<>();
+
+    public Member getOwner() {
+        return owner;
+    }
 }

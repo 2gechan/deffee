@@ -14,10 +14,9 @@ public class Post extends BaseEntity {
     private Long id;
     private String title;
     private String description;
-    private Date createDate;
     private int viewCount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "blog_id")
     private Blog blog;
 

@@ -20,7 +20,9 @@ public class Member extends BaseEntity {
 
     private String name;
 
-    @OneToOne
+    private String phone;
+
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "blog_id")
     private Blog myBlog;
 }
