@@ -11,6 +11,14 @@ public class Order {
     private Integer totalPrice;
     private String state;
 
+    public void changeStateForce(String state) {
+        this.state = state;
+    }
+
+    public Boolean sameId(Long id) {
+        return this.id.equals(id);
+    }
+
     private Integer calculateTotalPrice(List<Product> orderedProducts) {
         return orderedProducts.stream()
                 .mapToInt(orderedProduct -> orderedProduct.getPrice() * orderedProduct.getAmount())
