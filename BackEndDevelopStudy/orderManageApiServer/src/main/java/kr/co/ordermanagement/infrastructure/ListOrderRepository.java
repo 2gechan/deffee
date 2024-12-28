@@ -31,4 +31,12 @@ public class ListOrderRepository implements OrderRepository {
                 .findFirst()
                 .orElseThrow(() -> new EntityNotFoundException("Order를 찾지 못했습니다."));
     }
+
+    @Override
+    public List<Order> findByState(String state) {
+        return orders.stream()
+                .filter(order -> order.sameState(state))
+                .toList();
+
+    }
 }

@@ -49,7 +49,20 @@ public class OrderRestController {
             throw new RuntimeException("존재하지 않는 주문 상태 입니다.");
         }
 
+    }
 
+    @RequestMapping(value = "/orders", method = RequestMethod.GET)
+    public ResponseEntity<List<OrderResponseDto>> getOrderByState(@RequestParam String state) {
+        List<OrderResponseDto> orderResponseDtos = simpleOrderService.findByState(state);
+
+        return ResponseEntity.ok(orderResponseDtos);
+    }
+
+    @RequestMapping(value = "/orders/{orderId}/cancel", method = RequestMethod.PATCH)
+    public ResponseEntity<OrderResponseDto> cancelOrderById(@PathVariable Long orderId) {
+        OrderResponseDto orderResponseDto = simpleOrderService.cancelOrderById(orderId);
+
+        return ResponseEntity.ok(orderResponseDto);
     }
 
 }
