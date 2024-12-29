@@ -2,6 +2,7 @@ package kr.co.ordermanagement.application;
 
 import kr.co.ordermanagement.domain.order.Order;
 import kr.co.ordermanagement.domain.order.OrderRepository;
+import kr.co.ordermanagement.domain.order.OrderedProduct;
 import kr.co.ordermanagement.domain.order.State;
 import kr.co.ordermanagement.domain.product.Product;
 import kr.co.ordermanagement.domain.product.ProductRepository;
@@ -46,7 +47,7 @@ public class SimpleOrderService {
 
     public OrderResponseDto createOrder(List<OrderProductRequestDto> orderProductRequestDtos) {
 
-        List<Product> orderedProducts = makeOrderedProducts(orderProductRequestDtos);
+        List<OrderedProduct> orderedProducts = makeOrderedProducts(orderProductRequestDtos);
         decreaseProductsAmount(orderedProducts);
 
         Order order = new Order(orderedProducts);
@@ -56,7 +57,7 @@ public class SimpleOrderService {
         return orderResponseDto;
     }
 
-    private List<Product> makeOrderedProducts(List<OrderProductRequestDto> orderProductRequestDtos) {
+    private List<OrderedProduct> makeOrderedProducts(List<OrderProductRequestDto> orderProductRequestDtos) {
         return orderProductRequestDtos.stream().
                 map(orderProductRequestDto -> {
                     Long productId = orderProductRequestDto.getId();
@@ -65,7 +66,7 @@ public class SimpleOrderService {
                     Integer orderedAmount = orderProductRequestDto.getAmount();
                     product.checkEnoughAmount(orderedAmount);
 
-                    return new Product(
+                    return new OrderedProduct(
                             productId,
                             product.getName(),
                             product.getPrice(),
@@ -74,7 +75,7 @@ public class SimpleOrderService {
                 }).toList();
     }
 
-    private void decreaseProductsAmount(List<Product> orderedProducts) {
+    private void decreaseProductsAmount(List<OrderedProduct> orderedProducts) {
         orderedProducts.stream().
             forEach(orderedProduct -> {
                 Long productId = orderedProduct.getId();

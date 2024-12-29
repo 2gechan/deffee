@@ -37,10 +37,10 @@ public class OrderRestController {
 
     @RequestMapping(value = "/orders/{orderId}", method = RequestMethod.PATCH)
     public ResponseEntity<OrderResponseDto> changeOrderState(@PathVariable Long orderId, @RequestBody ChangeStateRequestDto changeStateRequestDto) {
-        if (changeStateRequestDto.getState().equals("CREATED") ||
-            changeStateRequestDto.getState().equals("SHIPPING") ||
-            changeStateRequestDto.getState().equals("COMPLETED") ||
-            changeStateRequestDto.getState().equals("CANCELED")) {
+        if (changeStateRequestDto.getState().equals(State.CREATED) ||
+            changeStateRequestDto.getState().equals(State.SHIPPING) ||
+            changeStateRequestDto.getState().equals(State.COMPLETED) ||
+            changeStateRequestDto.getState().equals(State.CANCELED)) {
 
             OrderResponseDto orderResponseDto = simpleOrderService.changeState(orderId, changeStateRequestDto);
 
