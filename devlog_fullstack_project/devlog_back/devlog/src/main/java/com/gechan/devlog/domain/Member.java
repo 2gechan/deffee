@@ -1,5 +1,6 @@
 package com.gechan.devlog.domain;
 
+import com.gechan.devlog.dto.MemberDTO;
 import jakarta.persistence.*;
 import org.springframework.lang.Nullable;
 
@@ -25,4 +26,35 @@ public class Member extends BaseEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "blog_id")
     private Blog myBlog;
+
+    public Member(String email, String pw, String name, String phone) {
+        this.email = email;
+        this.pw = pw;
+        this.name = name;
+        this.phone = phone;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPw() {
+        return pw;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public Blog getMyBlog() {
+        return myBlog;
+    }
 }
