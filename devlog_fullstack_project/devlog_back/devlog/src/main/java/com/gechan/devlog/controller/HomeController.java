@@ -1,17 +1,18 @@
 package com.gechan.devlog.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpResponse;
 import java.util.Map;
 
 @RestController
 public class HomeController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/")
-    public void home() {
+    public Map<String, String> home() {
+
+        return Map.of("message", "서버 연결 ok");
  
     }
 

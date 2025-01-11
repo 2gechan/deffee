@@ -1,8 +1,8 @@
 package com.gechan.devlog.service;
 
-import com.gechan.devlog.dto.CreateBlogRequestDTO;
+import com.gechan.devlog.dto.BlogCreateRequestDTO;
 
 public interface BlogService {
 
-    public String createBlog(CreateBlogRequestDTO createBlogRequestDTO);
+    public String createBlog(BlogCreateRequestDTO blogCreateRequestDTO);
 }

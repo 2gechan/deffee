@@ -1,11 +1,11 @@
 package com.gechan.devlog.dto;
 
-public class CreateBlogRequestDTO {
+public class BlogCreateRequestDTO {
 
     private String blogName;
     private MemberDTO memberDTO;
 
-    public CreateBlogRequestDTO(String blogName, MemberDTO memberDTO) {
+    public BlogCreateRequestDTO(String blogName, MemberDTO memberDTO) {
         this.blogName = blogName;
         this.memberDTO = memberDTO;
     }

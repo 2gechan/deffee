@@ -1,6 +1,6 @@
 package com.gechan.devlog.service.impl;
 
-import com.gechan.devlog.dto.CreateBlogRequestDTO;
+import com.gechan.devlog.dto.BlogCreateRequestDTO;
 import com.gechan.devlog.dto.MemberDTO;
 import com.gechan.devlog.repository.SimpleBlogRepository;
 import com.gechan.devlog.service.BlogService;
@@ -19,8 +19,8 @@ public class SimpleBlogService implements BlogService {
     }
 
     @Override
-    public String createBlog(CreateBlogRequestDTO createBlogRequestDTO) {
-        MemberDTO memberDTO = createBlogRequestDTO.getMemberDTO();
+    public String createBlog(BlogCreateRequestDTO blogCreateRequestDTO) {
+        MemberDTO memberDTO = blogCreateRequestDTO.getMemberDTO();
 
         // memberId를 기반으로 member Entity 찾기
 
