@@ -27,6 +27,9 @@ public class Member extends BaseEntity {
     @JoinColumn(name = "blog_id")
     private Blog myBlog;
 
+    protected Member() {
+    }
+
     public Member(String email, String pw, String name, String phone) {
         this.email = email;
         this.pw = pw;

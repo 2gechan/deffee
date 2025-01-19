@@ -18,6 +18,17 @@ public class MemberDTO {
         this.phone = phone;
     }
 
+    public static MemberDTO toDTO(Member member) {
+        MemberDTO memberDTO = new MemberDTO(
+                member.getId(),
+                member.getEmail(),
+                member.getPw(),
+                member.getName(),
+                member.getPhone()
+        );
+        return memberDTO;
+    }
+
     public Long getId() {
         return id;
     }

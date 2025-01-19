@@ -2,6 +2,7 @@ package com.gechan.devlog.controller;
 
 import com.gechan.devlog.dto.MemberDTO;
 import com.gechan.devlog.dto.UserCreateRequestDTO;
+import com.gechan.devlog.dto.UserLoginRequestDTO;
 import com.gechan.devlog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,9 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/login")
-    public void login() {
+    public Map<String, MemberDTO> login(@RequestBody UserLoginRequestDTO userLoginRequestDTO) {
+        MemberDTO loginMember = userService.login(userLoginRequestDTO);
+
+        return Map.of("login Member", loginMember);
     }
 }
