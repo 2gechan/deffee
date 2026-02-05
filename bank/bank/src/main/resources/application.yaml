@@ -1,39 +1,8 @@
 server.port: 9090
 
 spring:
+  profiles:
+    active: dev
   application:
     name: bank
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: dev
-    password: 1234
-  h2:
-     console:
-       enabled: true
-       path: /h2-console
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
 
-  security:
-    oauth2:
-      client:
-        registration:
-          github:
-            client-id: "Ov23liKI9JZzLPmlDiL3"
-            client-secret: "7fcd94f8978ae9717a7f91d6c3384447fb94e37f"
-            redirect-uri: http://localhost:9090/login/oauth2/code/github
-            scope:
-              - user:email
-  data:
-    redis:
-      host: svc.sel3.cloudtype.app
-      port: 32150
-
-#client-id: "Ov23liKI9JZzLPmlDiL3"
-#client-secret: "7fcd94f8978ae9717a7f91d6c3384447fb94e37f".
