@@ -30,4 +30,6 @@ spring:
             redirect-uri: http://localhost:9090/login/oauth2/code/github
             scope:
               - user:email
-
+  kafka:
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

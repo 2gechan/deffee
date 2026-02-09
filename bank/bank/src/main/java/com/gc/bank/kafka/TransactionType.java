@@ -1,4 +1,4 @@
-package com.gc.bank.common;
+package com.gc.bank.kafka;
 
 public enum TransactionType {
     DEPOSIT,

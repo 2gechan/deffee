@@ -1,26 +1,31 @@
 package com.gc.bank.domains.bank.service;
 
+import com.gc.bank.kafka.AccountTransactionEvent;
+import com.gc.bank.kafka.TransactionType;
 import com.gc.bank.domains.bank.repository.BankAccountRepository;
 import com.gc.bank.domains.bank.repository.BankMemberRepository;
 import com.gc.bank.types.dto.ApiResponse;
 import com.gc.bank.types.entity.Account;
 import com.gc.bank.types.entity.Member;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BankServiceImpl implements BankService {
 
     private final BankAccountRepository bankAccountRepository;
     private final BankMemberRepository bankMemberRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
-    public BankServiceImpl(BankAccountRepository bankAccountRepository, BankMemberRepository bankMemberRepository) {
+    public BankServiceImpl(BankAccountRepository bankAccountRepository, BankMemberRepository bankMemberRepository, ApplicationEventPublisher eventPublisher) {
         this.bankAccountRepository = bankAccountRepository;
         this.bankMemberRepository = bankMemberRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     @Override
@@ -67,6 +72,17 @@ public class BankServiceImpl implements BankService {
                 .orElseThrow(() -> new RuntimeException("입금할 계좌 정보가 올바르지 않습니다."));
 
         findAccount.deposit(amount);
+
+        eventPublisher.publishEvent(
+                new AccountTransactionEvent(
+                        memberId,
+                        accountId,
+                        amount,
+                        TransactionType.DEPOSIT,
+                        Instant.now()
+                )
+        );
+
     }
 
     @Transactional
@@ -76,5 +92,15 @@ public class BankServiceImpl implements BankService {
                 .orElseThrow(() -> new RuntimeException("출금할 계좌 정보가 올바르지 않습니다."));
 
         findAccount.withdraw(amount);
+
+        eventPublisher.publishEvent(
+            new AccountTransactionEvent(
+                    memberId,
+                    accountId,
+                    amount,
+                    TransactionType.WITHDRAW,
+                    Instant.now()
+            )
+        );
     }
 }
