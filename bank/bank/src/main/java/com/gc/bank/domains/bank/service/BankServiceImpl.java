@@ -1,7 +1,7 @@
 package com.gc.bank.domains.bank.service;
 
-import com.gc.bank.kafka.AccountTransactionEvent;
-import com.gc.bank.kafka.TransactionType;
+import com.gc.bank.domains.transaction.event.AccountTransactionEvent;
+import com.gc.bank.domains.transaction.event.TransactionType;
 import com.gc.bank.domains.bank.repository.BankAccountRepository;
 import com.gc.bank.domains.bank.repository.BankMemberRepository;
 import com.gc.bank.types.dto.ApiResponse;

@@ -1,4 +1,4 @@
-package com.gc.bank.kafka;
+package com.gc.bank.domains.transaction.event;
 
 import java.time.Instant;
 

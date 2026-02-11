@@ -1,5 +1,6 @@
-package com.gc.bank.kafka;
+package com.gc.bank.kafka.producer;
 
+import com.gc.bank.domains.transaction.event.DomainEvent;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
