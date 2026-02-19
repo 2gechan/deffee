@@ -46,4 +46,8 @@ public class BankController {
         bankService.withdraw(memberId, accountId, amount);
         return ApiResponse.success("OK");
     }
+
+    public void transfer() {
+
+    }
 }

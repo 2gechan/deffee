@@ -17,4 +17,6 @@ public interface BankService {
     public void deposit(Long memberId, Long accountId, BigDecimal amount);
 
     public void withdraw(Long memberId, Long accountId, BigDecimal amount);
+
+    public void transfer(Long fromAccountId, Long toAccountId, BigDecimal amount);
 }

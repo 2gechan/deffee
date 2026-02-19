@@ -1,6 +1,7 @@
 package com.gc.bank.types.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -11,10 +12,12 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
+    @Getter
     private Member member;
 
     @Column(nullable = false, unique = true)
@@ -72,4 +75,6 @@ public class Account {
 
         this.balance = this.balance.subtract(amount);
     }
+
+
 }
