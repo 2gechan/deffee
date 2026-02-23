@@ -4,6 +4,7 @@ import com.gc.bank.domains.transaction.event.AccountTransactionEvent;
 import com.gc.bank.domains.transaction.event.TransactionType;
 import com.gc.bank.domains.bank.repository.BankAccountRepository;
 import com.gc.bank.domains.bank.repository.BankMemberRepository;
+import com.gc.bank.redis.service.RedisAccountLockManager;
 import com.gc.bank.security.SecurityUtil;
 import com.gc.bank.types.dto.ApiResponse;
 import com.gc.bank.types.entity.Account;
@@ -23,11 +24,13 @@ public class BankServiceImpl implements BankService {
     private final BankAccountRepository bankAccountRepository;
     private final BankMemberRepository bankMemberRepository;
     private final ApplicationEventPublisher eventPublisher;
+    private final RedisAccountLockManager redisAccountLockManager;
 
-    public BankServiceImpl(BankAccountRepository bankAccountRepository, BankMemberRepository bankMemberRepository, ApplicationEventPublisher eventPublisher) {
+    public BankServiceImpl(BankAccountRepository bankAccountRepository, BankMemberRepository bankMemberRepository, ApplicationEventPublisher eventPublisher, RedisAccountLockManager redisAccountLockManager) {
         this.bankAccountRepository = bankAccountRepository;
         this.bankMemberRepository = bankMemberRepository;
         this.eventPublisher = eventPublisher;
+        this.redisAccountLockManager = redisAccountLockManager;
     }
 
     @Override
@@ -122,39 +125,49 @@ public class BankServiceImpl implements BankService {
         Long firstId = Math.min(fromAccountId, toAccountId);
         Long secondId = Math.max(fromAccountId, toAccountId);
 
-        Account firstAccount = bankAccountRepository.findById(firstId).orElseThrow();
+        redisAccountLockManager.lock(firstId);
+        redisAccountLockManager.lock(secondId);
 
-        Account secondAccount = bankAccountRepository.findById(secondId).orElseThrow();
+        try {
+            Account firstAccount = bankAccountRepository.findById(firstId).orElseThrow();
 
-        Account from = fromAccountId.equals(firstId) ? firstAccount : secondAccount;
-        Account to = toAccountId.equals(secondId) ? secondAccount : firstAccount;
+            Account secondAccount = bankAccountRepository.findById(secondId).orElseThrow();
 
-        // 본인 계좌 검증 추가
-        if (!from.getMember().getId().equals(loginMemberId)) {
-            throw new IllegalArgumentException("본인 계좌만 이체할 수 있습니다.");
+            Account from = fromAccountId.equals(firstId) ? firstAccount : secondAccount;
+            Account to = toAccountId.equals(secondId) ? secondAccount : firstAccount;
+
+            // 본인 계좌 검증 추가
+            if (!from.getMember().getId().equals(loginMemberId)) {
+                throw new IllegalArgumentException("본인 계좌만 이체할 수 있습니다.");
+            }
+
+            from.withdraw(amount);
+            to.deposit(amount);
+
+            eventPublisher.publishEvent(
+                    new AccountTransactionEvent(
+                            from.getMember().getId(),
+                            from.getId(),
+                            amount,
+                            TransactionType.WITHDRAW,
+                            Instant.now()
+                    )
+            );
+
+            eventPublisher.publishEvent(
+                    new AccountTransactionEvent(
+                            to.getMember().getId(),
+                            to.getId(),
+                            amount,
+                            TransactionType.DEPOSIT,
+                            Instant.now()
+                    )
+            );
+        } finally {
+            redisAccountLockManager.unlock(firstId);
+            redisAccountLockManager.unlock(secondId);
         }
 
-        from.withdraw(amount);
-        to.deposit(amount);
 
-        eventPublisher.publishEvent(
-                new AccountTransactionEvent(
-                        from.getMember().getId(),
-                        from.getId(),
-                        amount,
-                        TransactionType.WITHDRAW,
-                        Instant.now()
-                )
-        );
-
-        eventPublisher.publishEvent(
-                new AccountTransactionEvent(
-                        to.getMember().getId(),
-                        to.getId(),
-                        amount,
-                        TransactionType.DEPOSIT,
-                        Instant.now()
-                )
-        );
     }
 }
