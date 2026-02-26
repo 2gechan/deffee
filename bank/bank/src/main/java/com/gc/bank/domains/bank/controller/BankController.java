@@ -1,7 +1,9 @@
 package com.gc.bank.domains.bank.controller;
 
 import com.gc.bank.domains.bank.service.BankService;
+import com.gc.bank.security.SecurityUtil;
 import com.gc.bank.types.dto.ApiResponse;
+import com.gc.bank.types.dto.MoneyRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,37 +19,53 @@ public class BankController {
         this.bankService = bankService;
     }
 
-    @GetMapping("/createAccount")
-    public void createAccount(Long memberSeq) {
-        ApiResponse<String> response = bankService.createAccount(memberSeq);
+    @PostMapping("/createAccount")
+    public ApiResponse<String>  createAccount(
+            @AuthenticationPrincipal Long memberId
+    ) {
+        return bankService.createAccount(memberId);
     }
 
     @GetMapping("/balance")
-    public void balanceRetv(Long memberSeq, Long accountSeq) {
-        BigDecimal balance = bankService.balanceRetv(memberSeq, accountSeq);
+    public BigDecimal balanceRetv(
+            @AuthenticationPrincipal Long memberId,
+            @RequestParam Long accountId
+    ) {
+        return bankService.balanceRetv(memberId, accountId);
     }
 
     @PostMapping("/deposit")
     public ApiResponse<String> deposit(
             @AuthenticationPrincipal Long memberId,
-            @RequestParam Long accountId,
-            @RequestParam BigDecimal amount
+            @RequestBody MoneyRequest moneyRequest
     ) {
-        bankService.deposit(memberId, accountId, amount);
+
+        bankService.deposit(memberId, moneyRequest.toAccountId(), moneyRequest.amount());
         return ApiResponse.success("OK");
     }
 
     @PostMapping("/withdraw")
     public ApiResponse<String> withdraw(
             @AuthenticationPrincipal Long memberId,
-            @RequestParam Long accountId,
-            @RequestParam BigDecimal amount
-    ) {
-        bankService.withdraw(memberId, accountId, amount);
+            @RequestBody MoneyRequest moneyRequest
+            ) {
+        bankService.withdraw(memberId, moneyRequest.fromAccountId(), moneyRequest.amount());
         return ApiResponse.success("OK");
     }
 
-    public void transfer() {
+    @PostMapping("/transfer")
+    public ApiResponse<String> transfer(
+            @AuthenticationPrincipal Long memberId,
+            @RequestBody MoneyRequest moneyRequest
+    ) {
 
+        bankService.transfer(
+                memberId,
+                moneyRequest.fromAccountId(),
+                moneyRequest.toAccountId(),
+                moneyRequest.amount()
+        );
+
+        return ApiResponse.success("OK");
     }
 }

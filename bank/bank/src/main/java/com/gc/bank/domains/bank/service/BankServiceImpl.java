@@ -111,13 +111,11 @@ public class BankServiceImpl implements BankService {
 
     @Transactional
     @Override
-    public void transfer(Long fromAccountId, Long toAccountId, BigDecimal amount) {
+    public void transfer(Long memberId, Long fromAccountId, Long toAccountId, BigDecimal amount) {
 
         if (fromAccountId.equals(toAccountId)) {
             throw new IllegalArgumentException("같은 계좌간의 이체는 불가 합니다.");
         }
-
-        Long loginMemberId = SecurityUtil.getCurrentMemberId();
 
         // deadlock 방지를 위한 무조건적인 계좌번호 숫자가 낮은 순에서 높은 순으로의 조회
         // 1계좌 -> 2계좌 이체 시 1계좌 조회 후 2계좌 조회
@@ -137,7 +135,7 @@ public class BankServiceImpl implements BankService {
             Account to = toAccountId.equals(secondId) ? secondAccount : firstAccount;
 
             // 본인 계좌 검증 추가
-            if (!from.getMember().getId().equals(loginMemberId)) {
+            if (!from.getMember().getId().equals(memberId)) {
                 throw new IllegalArgumentException("본인 계좌만 이체할 수 있습니다.");
             }
 
