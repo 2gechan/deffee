@@ -4,6 +4,11 @@ import com.gc.bank.domains.bank.service.BankService;
 import com.gc.bank.security.SecurityUtil;
 import com.gc.bank.types.dto.ApiResponse;
 import com.gc.bank.types.dto.MoneyRequest;
+import com.gc.bank.types.dto.TransactionResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,5 +72,19 @@ public class BankController {
         );
 
         return ApiResponse.success("OK");
+    }
+
+    @GetMapping("/transactions")
+    public ApiResponse<Page<TransactionResponse>> getTransactions(
+            @AuthenticationPrincipal Long memberId,
+            @RequestParam Long accountId,
+            @PageableDefault(size = 20, sort = "occurredAt",
+                    direction = Sort.Direction.DESC)
+            Pageable pageable
+    ) {
+
+        return ApiResponse.success(
+                bankService.getTransactions(memberId, accountId, pageable)
+        );
     }
 }

@@ -1,7 +1,10 @@
 package com.gc.bank.domains.bank.service;
 
 import com.gc.bank.types.dto.ApiResponse;
+import com.gc.bank.types.dto.TransactionResponse;
 import com.gc.bank.types.entity.Account;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -19,4 +22,8 @@ public interface BankService {
     public void withdraw(Long memberId, Long accountId, BigDecimal amount);
 
     public void transfer(Long memberId, Long fromAccountId, Long toAccountId, BigDecimal amount);
+
+    public Page<TransactionResponse> getTransactions(Long memberId,
+                                                     Long accountId,
+                                                     Pageable pageable);
 }

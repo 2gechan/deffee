@@ -30,6 +30,24 @@ spring:
             redirect-uri: http://localhost:9090/login/oauth2/code/github
             scope:
               - user:email
+
   kafka:
+    bootstrap-servers: localhost:9092
     producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: bank-group
+      auto-offset-reset: earliest
+      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    properties:
+      spring:
+        json:
+          trusted:
+            packages: "*"
+
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 6000

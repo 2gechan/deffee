@@ -4,19 +4,22 @@ import com.gc.bank.domains.transaction.event.AccountTransactionEvent;
 import com.gc.bank.domains.transaction.event.TransactionType;
 import com.gc.bank.domains.bank.repository.BankAccountRepository;
 import com.gc.bank.domains.bank.repository.BankMemberRepository;
+import com.gc.bank.domains.transaction.repository.TransactionLogRepository;
 import com.gc.bank.redis.service.RedisAccountLockManager;
 import com.gc.bank.security.SecurityUtil;
 import com.gc.bank.types.dto.ApiResponse;
+import com.gc.bank.types.dto.TransactionResponse;
 import com.gc.bank.types.entity.Account;
 import com.gc.bank.types.entity.Member;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BankServiceImpl implements BankService {
@@ -25,12 +28,14 @@ public class BankServiceImpl implements BankService {
     private final BankMemberRepository bankMemberRepository;
     private final ApplicationEventPublisher eventPublisher;
     private final RedisAccountLockManager redisAccountLockManager;
+    private final TransactionLogRepository transactionLogRepository;
 
-    public BankServiceImpl(BankAccountRepository bankAccountRepository, BankMemberRepository bankMemberRepository, ApplicationEventPublisher eventPublisher, RedisAccountLockManager redisAccountLockManager) {
+    public BankServiceImpl(BankAccountRepository bankAccountRepository, BankMemberRepository bankMemberRepository, ApplicationEventPublisher eventPublisher, RedisAccountLockManager redisAccountLockManager, TransactionLogRepository transactionLogRepository) {
         this.bankAccountRepository = bankAccountRepository;
         this.bankMemberRepository = bankMemberRepository;
         this.eventPublisher = eventPublisher;
         this.redisAccountLockManager = redisAccountLockManager;
+        this.transactionLogRepository = transactionLogRepository;
     }
 
     @Override
@@ -166,6 +171,28 @@ public class BankServiceImpl implements BankService {
             redisAccountLockManager.unlock(secondId);
         }
 
+    }
 
+    @Transactional(readOnly = true)
+    public Page<TransactionResponse> getTransactions(
+            Long memberId,
+            Long accountId,
+            Pageable pageable
+    ) {
+
+        Account account = bankAccountRepository.findById(accountId)
+                .orElseThrow(() -> new IllegalArgumentException("계좌 없음"));
+
+        if (!account.getMember().getId().equals(memberId)) {
+            throw new IllegalArgumentException("본인 계좌만 조회 가능");
+        }
+
+        return transactionLogRepository
+                .findByAccountIdAndMemberIdOrderByOccurredAtDesc(
+                        accountId,
+                        memberId,
+                        pageable
+                )
+                .map(TransactionResponse::from);
     }
 }
