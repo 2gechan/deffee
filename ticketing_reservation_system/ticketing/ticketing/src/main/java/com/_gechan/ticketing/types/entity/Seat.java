@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"concert_id", "seatNumber"})
+                @UniqueConstraint(columnNames = {"concert_id", "section", "row_number", "seat_number"})
         }
 )
 public class Seat {
@@ -16,10 +16,16 @@ public class Seat {
 
 
     @ManyToOne
-    @JoinColumn(name = "concert_id")
+    @JoinColumn(name = "concert_id", nullable = false)
     private Concert concert;
 
-    private Long seatNumber;
+    private String section;
+
+    @Column(name = "row_number")
+    private int rowNumber;
+
+    @Column(name = "seat_number")
+    private int seatNumber;
 
     @Enumerated(EnumType.STRING)
     private SeatStatus status;
@@ -30,10 +36,11 @@ public class Seat {
     protected Seat() {
     }
 
-    public Seat(Concert concert, Long seatNumber, SeatStatus status, Long version) {
+    public Seat(Concert concert, String section, int rowNumber, int seatNumber) {
         this.concert = concert;
+        this.section = section;
+        this.rowNumber = rowNumber;
         this.seatNumber = seatNumber;
-        this.status = status;
-        this.version = version;
+        this.status = SeatStatus.AVAILABLE;
     }
 }

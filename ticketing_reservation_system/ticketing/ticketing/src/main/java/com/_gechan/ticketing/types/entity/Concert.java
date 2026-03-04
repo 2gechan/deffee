@@ -15,8 +15,6 @@ public class Concert {
 
     private LocalDateTime concertDate;
 
-    private Long totalSeats;
-
     private LocalDateTime createdAt;
 
     @PrePersist
@@ -27,9 +25,8 @@ public class Concert {
     protected Concert() {
     }
 
-    public Concert(String title, LocalDateTime concertDate, Long totalSeats) {
+    public Concert(String title, LocalDateTime concertDate) {
         this.title = title;
         this.concertDate = concertDate;
-        this.totalSeats = totalSeats;
     }
 }
