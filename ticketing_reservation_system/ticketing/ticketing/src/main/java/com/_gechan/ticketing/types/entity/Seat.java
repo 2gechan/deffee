@@ -1,6 +1,7 @@
 package com._gechan.ticketing.types.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
 @Table(
@@ -8,6 +9,7 @@ import jakarta.persistence.*;
                 @UniqueConstraint(columnNames = {"concert_id", "section", "row_number", "seat_number"})
         }
 )
+@Getter
 public class Seat {
 
     @Id
@@ -42,5 +44,16 @@ public class Seat {
         this.rowNumber = rowNumber;
         this.seatNumber = seatNumber;
         this.status = SeatStatus.AVAILABLE;
+    }
+
+    public void changeStatus(SeatStatus status) {
+        this.status = status;
+    }
+
+    public void reserve() {
+        if (this.status != SeatStatus.AVAILABLE) {
+            throw new IllegalStateException("Seat already reserved");
+        }
+        this.status = SeatStatus.RESERVED;
     }
 }
