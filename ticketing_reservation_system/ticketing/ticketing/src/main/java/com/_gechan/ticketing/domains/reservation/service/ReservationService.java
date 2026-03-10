@@ -4,5 +4,7 @@ import com._gechan.ticketing.types.entity.Member;
 
 public interface ReservationService {
 
-    void reserveSeat(Member member, Long seatId);
+    void reserveSeat(Long memberId, Long seatId);
+
+    void cancelSeat(Long memberId, Long reservationId);
 }

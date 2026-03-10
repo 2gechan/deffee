@@ -32,9 +32,6 @@ public class Seat {
     @Enumerated(EnumType.STRING)
     private SeatStatus status;
 
-    @Version
-    private Long version;
-
     protected Seat() {
     }
 
@@ -46,14 +43,14 @@ public class Seat {
         this.status = SeatStatus.AVAILABLE;
     }
 
-    public void changeStatus(SeatStatus status) {
-        this.status = status;
-    }
-
     public void reserve() {
         if (this.status != SeatStatus.AVAILABLE) {
             throw new IllegalStateException("Seat already reserved");
         }
         this.status = SeatStatus.RESERVED;
+    }
+
+    public void release() {
+        this.status = SeatStatus.AVAILABLE;
     }
 }

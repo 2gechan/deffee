@@ -1,10 +1,12 @@
 package com._gechan.ticketing.types.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
 public class Member {
 
     @Id

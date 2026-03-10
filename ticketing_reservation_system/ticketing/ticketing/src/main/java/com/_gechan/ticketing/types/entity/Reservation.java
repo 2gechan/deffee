@@ -1,10 +1,12 @@
 package com._gechan.ticketing.types.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
 public class Reservation {
 
     @Id
@@ -35,5 +37,16 @@ public class Reservation {
         this.status = status;
         this.reservedAt = reservedAt;
         this.expiredAt = expiredAt;
+    }
+
+    public void cancel() {
+
+        if (this.status != ReservationStatus.PENDING) {
+            throw new IllegalStateException("Reservation cannot be cancel");
+        }
+
+        this.status = ReservationStatus.CANCELED;
+
+        this.seat.release();
     }
 }

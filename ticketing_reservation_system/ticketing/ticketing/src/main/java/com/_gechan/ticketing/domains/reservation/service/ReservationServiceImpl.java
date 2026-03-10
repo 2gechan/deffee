@@ -1,5 +1,6 @@
 package com._gechan.ticketing.domains.reservation.service;
 
+import com._gechan.ticketing.domains.member.repository.MemberRepository;
 import com._gechan.ticketing.domains.reservation.repository.ReservationRepository;
 import com._gechan.ticketing.domains.seat.repository.SeatRepository;
 import com._gechan.ticketing.types.entity.*;
@@ -15,30 +16,52 @@ public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationRepository reservationRepository;
     private final SeatRepository seatRepository;
+    private final MemberRepository memberRepository;
 
-    public ReservationServiceImpl(ReservationRepository reservationRepository, SeatRepository seatRepository) {
+    public ReservationServiceImpl(ReservationRepository reservationRepository, SeatRepository seatRepository, MemberRepository memberRepository) {
         this.reservationRepository = reservationRepository;
         this.seatRepository = seatRepository;
+        this.memberRepository = memberRepository;
     }
 
     @Override
-    public void reserveSeat(Member member, Long seatId) {
+    public void reserveSeat(Long memberId, Long seatId) {
 
-        Seat seat = seatRepository.findById(seatId).orElseThrow(
-                () -> new RuntimeException("Seat not found")
+        Member member = memberRepository.findById(memberId).orElseThrow(
+                () -> new IllegalArgumentException("Member not found")
+        );
+
+        Seat seat = seatRepository.findByIdWithLock(seatId).orElseThrow(
+                () -> new IllegalArgumentException("Seat not found")
         );
 
         seat.reserve();
 
-        Reservation reservation = reservationRepository.save(
+        LocalDateTime now = LocalDateTime.now();
+        reservationRepository.save(
                 new Reservation(
                         member,
                         seat,
                         ReservationStatus.PENDING,
-                        LocalDateTime.now(),
-                        LocalDateTime.now().plusMinutes(5)
+                        now,
+                        now.plusMinutes(5)
                 )
         );
+
+    }
+
+    @Override
+    public void cancelSeat(Long memberId, Long reservationId) {
+
+        Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(
+                () -> new IllegalArgumentException("Reservation not found")
+        );
+
+        if (!reservation.getMember().getId().equals(memberId)) {
+            throw new IllegalStateException("Not your reservation");
+        }
+
+        reservation.cancel();
 
     }
 }
