@@ -49,4 +49,13 @@ public class Reservation {
 
         this.seat.release();
     }
+
+    public void expire() {
+        if (this.status != ReservationStatus.PENDING) {
+            return;
+        }
+
+        this.status = ReservationStatus.EXPIRED;
+        this.seat.release();
+    }
 }
