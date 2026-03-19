@@ -35,10 +35,8 @@ public class ReservationServiceImpl implements ReservationService {
                 () -> new IllegalArgumentException("Seat not found")
         );
 
-        seat.reserve();
-
         LocalDateTime now = LocalDateTime.now();
-        reservationRepository.save(
+        Reservation reservation = reservationRepository.save(
                 new Reservation(
                         member,
                         seat,
@@ -47,6 +45,8 @@ public class ReservationServiceImpl implements ReservationService {
                         now.plusMinutes(5)
                 )
         );
+
+        reservation.reserve();
 
     }
 

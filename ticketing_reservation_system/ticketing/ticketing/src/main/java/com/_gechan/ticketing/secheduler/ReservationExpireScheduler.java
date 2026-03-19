@@ -4,6 +4,7 @@ import com._gechan.ticketing.domains.reservation.repository.ReservationRepositor
 import com._gechan.ticketing.types.entity.Reservation;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,6 +19,7 @@ public class ReservationExpireScheduler {
     }
 
 
+    @Transactional
     @Scheduled(fixedDelay = 60000)
     public void expireReservations() {
 

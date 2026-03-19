@@ -2,6 +2,7 @@ package com._gechan.ticketing.types.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
@@ -39,15 +40,32 @@ public class Reservation {
         this.expiredAt = expiredAt;
     }
 
-    public void cancel() {
+    public void reserve() {
 
+        LocalDateTime now = LocalDateTime.now();
         if (this.status != ReservationStatus.PENDING) {
-            throw new IllegalStateException("Reservation cannot be cancel");
+            throw new IllegalStateException("Reservation cannot be reserved");
         }
 
-        this.status = ReservationStatus.CANCELED;
+        if (this.reservedAt != null) {
+            throw new IllegalStateException("이미 예약 처리된 요청");
+        }
+
+        this.seat.reserve();
+        this.reservedAt = now;
+        this.expiredAt = now.plusMinutes(5);
+
+    }
+
+    public void cancel() {
+
+        if (this.status != ReservationStatus.PENDING &&
+                this.status != ReservationStatus.COMPLETED) {
+            throw new IllegalStateException("취소 불가 상태");
+        }
 
         this.seat.release();
+        this.status = ReservationStatus.CANCELED;
     }
 
     public void expire() {
@@ -55,7 +73,25 @@ public class Reservation {
             return;
         }
 
-        this.status = ReservationStatus.EXPIRED;
         this.seat.release();
+        this.status = ReservationStatus.EXPIRED;
+
+    }
+
+    public void complete() {
+
+        if (this.status != ReservationStatus.PENDING) {
+            throw new IllegalStateException("확정 불가 상태");
+        }
+
+        if (LocalDateTime.now().isAfter(this.expiredAt)) {
+            throw new IllegalStateException("이미 만료된 예약");
+        }
+
+        if (this.seat.getStatus() != SeatStatus.RESERVED) {
+            throw new IllegalStateException("좌석 상태 불일치");
+        }
+
+        this.status = ReservationStatus.COMPLETED;
     }
 }
