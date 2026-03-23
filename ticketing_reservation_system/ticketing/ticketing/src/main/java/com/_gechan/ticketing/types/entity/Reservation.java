@@ -94,4 +94,14 @@ public class Reservation {
 
         this.status = ReservationStatus.COMPLETED;
     }
+
+    // 결제 시점에 예약 만료 스케쥴러에 의해 만료되지 않도록 PROCESSING 상태로 변경
+    public void startPayment() {
+
+        if (this.status != ReservationStatus.PENDING) {
+            throw new IllegalStateException("결제 할 수 없는 예약 입니다.");
+        }
+
+        this.status = ReservationStatus.PROCESSING;
+    }
 }
